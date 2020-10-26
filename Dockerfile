@@ -51,3 +51,8 @@ RUN echo "Downloading and building OpenPose with Python support..." && \
 	wget -P /openpose/models/pose/coco/ https://github.com/foss-for-synopsys-dwc-arc-processors/synopsys-caffe-models/raw/master/caffe_models/openpose/caffe_model/pose_iter_440000.caffemodel
 
 WORKDIR /openpose
+
+# Add OpenPose to Python path 
+ENV PYTHON_VERSION=$(echo -e "import sys\nprint('{}.{}'.format(sys.version[0], sys.version[2]))" | python3)
+RUN ln -s ./build/python/openpose /usr/local/lib/python${PYTHON_VERSION}/dist-packages/ 
+ 
