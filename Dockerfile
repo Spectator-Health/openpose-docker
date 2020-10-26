@@ -52,7 +52,12 @@ RUN echo "Downloading and building OpenPose with Python support..." && \
 
 WORKDIR /openpose
 
-# Add OpenPose to Python path 
+# Setup environment for pyopenpose 
 ENV PYTHON_VERSION=$(echo -e "import sys\nprint('{}.{}'.format(sys.version[0], sys.version[2]))" | python3)
-RUN ln -s ./build/python/openpose /usr/local/lib/python${PYTHON_VERSION}/dist-packages/ 
+RUN cp ./build/python/openpose/pyopenpose.cpython-36m-x86_64-linux-gnu.so /usrlocal/lib/python${PYTHON_VERSION}/dist-packages && \
+	cd /usr/local/lib/python${PYTHON_VERSION}/dist-packages && \
+	ln -s pyopenpose.cpython-36m-x86_64-linux-gnu.so pyopenpose && \
+	export LD_LIBRARY_PATH=/openpose/build/python/openpose
+
+#RUN ln -s ./build/python/openpose /usr/local/lib/python${PYTHON_VERSION}/dist-packages/ 
  
