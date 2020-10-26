@@ -4,7 +4,7 @@ FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 RUN echo "Installing dependencies..." && \
 	apt-get -y --no-install-recommends update && \
 	apt-get -y --no-install-recommends upgrade && \
-	apt-get install -y --no-install-recommends \
+	DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 	wget \
 	vim \
 	build-essential \
